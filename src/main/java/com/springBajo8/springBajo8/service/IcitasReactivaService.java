@@ -21,4 +21,8 @@ public interface IcitasReactivaService {
     //Methods for the activity
     Mono<citasDTOReactiva> cancelarCita(String id);
 
+    Flux<citasDTOReactiva> findByFecha(String fecha);
+
+    Mono<citasDTOReactiva> consultDoctor(String id);
+
 }

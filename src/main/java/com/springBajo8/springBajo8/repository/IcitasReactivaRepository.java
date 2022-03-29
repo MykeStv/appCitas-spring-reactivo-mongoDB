@@ -7,4 +7,5 @@ import reactor.core.publisher.Flux;
 
 public interface IcitasReactivaRepository extends ReactiveMongoRepository<citasDTOReactiva, String> {
     Flux<citasDTOReactiva> findByIdPaciente(String idPaciente);
+    Flux<citasDTOReactiva> findAllByFechaReservaCita(String fechaReservaCita);
 }

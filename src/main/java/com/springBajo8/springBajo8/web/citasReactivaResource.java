@@ -55,4 +55,16 @@ public class citasReactivaResource {
                 .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));*/
     }
 
+    @GetMapping(value = "/citasReactivas/{fechaReserva}/fecha")
+    private Flux<citasDTOReactiva> findByFecha(@PathVariable("fechaReserva") String fechaReserva){
+        System.out.println(this.icitasReactivaService.findByFecha(fechaReserva));
+        System.out.println(fechaReserva);
+        return this.icitasReactivaService.findByFecha(fechaReserva);
+    }
+
+    @GetMapping(path = "/citasReactivas/{id}/consult-doctor/")
+    private Mono<String> consultDoctor(@PathVariable("id") String id) {
+        return this.icitasReactivaService.consultDoctor(id)
+                .flatMap(cita -> Mono.just(cita.getNombreMedico() +" "+  cita.getApellidosMedico()));
+    }
 }

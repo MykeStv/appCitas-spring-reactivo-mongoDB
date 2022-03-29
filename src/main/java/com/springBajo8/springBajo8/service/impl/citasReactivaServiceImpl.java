@@ -65,4 +65,14 @@ public class citasReactivaServiceImpl implements IcitasReactivaService {
                 })
                 .switchIfEmpty(Mono.empty());
     }
+
+    @Override
+    public Flux<citasDTOReactiva> findByFecha(String fecha) {
+        return this.IcitasReactivaRepository.findAllByFechaReservaCita(fecha);
+    }
+
+    @Override
+    public Mono<citasDTOReactiva> consultDoctor(String id) {
+        return this.IcitasReactivaRepository.findById(id);
+    }
 }
