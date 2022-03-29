@@ -55,4 +55,14 @@ public class citasReactivaServiceImpl implements IcitasReactivaService {
     public Mono<citasDTOReactiva> findById(String id) {
         return this.IcitasReactivaRepository.findById(id);
     }
+
+    @Override
+    public Mono<citasDTOReactiva> cancelarCita(String id) {
+        return this.IcitasReactivaRepository.findById(id)
+                .flatMap(cita ->  {
+                    cita.setEstadoReservaCita("cancelada");
+                    return save(cita);
+                })
+                .switchIfEmpty(Mono.empty());
+    }
 }

@@ -17,4 +17,8 @@ public interface IcitasReactivaService {
     Flux<citasDTOReactiva> findAll();
 
     Mono<citasDTOReactiva> findById(String id);
+
+    //Methods for the activity
+    Mono<citasDTOReactiva> cancelarCita(String id);
+
 }

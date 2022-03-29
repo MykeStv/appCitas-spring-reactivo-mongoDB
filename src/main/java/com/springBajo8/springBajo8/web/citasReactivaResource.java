@@ -48,4 +48,11 @@ public class citasReactivaResource {
         return this.icitasReactivaService.findAll();
     }
 
+    @PutMapping(value = "/citasReactivas/cancelar/{id}")
+    private Mono<citasDTOReactiva> cancelarCita(@PathVariable("id") String id){
+        return this.icitasReactivaService.cancelarCita(id);
+                /*.flatMap(cita -> Mono.just(ResponseEntity.ok(cita)))
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));*/
+    }
+
 }
