@@ -5,6 +5,8 @@ import com.springBajo8.springBajo8.domain.citasDTOReactiva;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDate;
+
 public interface IcitasReactivaService {
     Mono<citasDTOReactiva> save(citasDTOReactiva citasDTOReactiva);
 
@@ -12,7 +14,7 @@ public interface IcitasReactivaService {
 
     Mono<citasDTOReactiva> update(String id, citasDTOReactiva citasDTOReactiva);
 
-    Flux<citasDTOReactiva> findByIdPaciente(String idPaciente);
+    //Flux<citasDTOReactiva> findByIdPaciente(String idPaciente);
 
     Flux<citasDTOReactiva> findAll();
 
@@ -21,7 +23,9 @@ public interface IcitasReactivaService {
     //Methods for the activity
     Mono<citasDTOReactiva> cancelarCita(String id);
 
-    Flux<citasDTOReactiva> findByFecha(String fecha);
+    Flux<citasDTOReactiva> findByFecha(LocalDate fecha);
+
+    Flux<citasDTOReactiva> findByFecha2(LocalDate fecha);
 
     Mono<citasDTOReactiva> consultDoctor(String id);
 

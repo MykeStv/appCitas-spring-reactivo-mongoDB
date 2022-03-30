@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 @RestController
 public class citasReactivaResource {
 
@@ -38,10 +43,11 @@ public class citasReactivaResource {
 
     }
 
-    @GetMapping("/citasReactivas/{idPaciente}/byidPaciente")
+    /*@GetMapping("/citasReactivas/{idPaciente}/byidPaciente")
     private Flux<citasDTOReactiva> findAllByidPaciente(@PathVariable("idPaciente") String idPaciente) {
         return this.icitasReactivaService.findByIdPaciente(idPaciente);
-    }
+    }*/
+
 
     @GetMapping(value = "/citasReactivas")
     private Flux<citasDTOReactiva> findAll() {
@@ -56,10 +62,18 @@ public class citasReactivaResource {
     }
 
     @GetMapping(value = "/citasReactivas/{fechaReserva}/fecha")
-    private Flux<citasDTOReactiva> findByFecha(@PathVariable("fechaReserva") String fechaReserva){
-        System.out.println(this.icitasReactivaService.findByFecha(fechaReserva));
-        System.out.println(fechaReserva);
-        return this.icitasReactivaService.findByFecha(fechaReserva);
+    private Flux<citasDTOReactiva> findByFecha(@PathVariable("fechaReserva") String fecha){
+        String[] date = fecha.split("-");
+        int year = Integer.parseInt(date[0]);
+        int month = Integer.parseInt(date[1]);
+        int day = Integer.parseInt(date[2]);
+        LocalDate dateFormat = LocalDate.of(year, month, day);
+
+        System.out.println(this.icitasReactivaService.findByFecha2(dateFormat));
+        System.out.println(dateFormat);
+
+        return this.icitasReactivaService.findByFecha(dateFormat);
+        //return this.icitasReactivaService.findByFecha2(fecha).collectList();
     }
 
     @GetMapping(path = "/citasReactivas/{id}/consult-doctor/")

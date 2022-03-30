@@ -6,10 +6,13 @@ package com.springBajo8.springBajo8.service.impl;
 import com.springBajo8.springBajo8.domain.citasDTOReactiva;
 import com.springBajo8.springBajo8.repository.IcitasReactivaRepository;
 import com.springBajo8.springBajo8.service.IcitasReactivaService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.time.LocalDate;
 
 @Service
 public class citasReactivaServiceImpl implements IcitasReactivaService {
@@ -40,10 +43,10 @@ public class citasReactivaServiceImpl implements IcitasReactivaService {
                 .switchIfEmpty(Mono.empty());
     }
 
-    @Override
+    /*@Override
     public Flux<citasDTOReactiva> findByIdPaciente(String idPaciente) {
         return this.IcitasReactivaRepository.findByIdPaciente(idPaciente);
-    }
+    }*/
 
 
     @Override
@@ -67,8 +70,17 @@ public class citasReactivaServiceImpl implements IcitasReactivaService {
     }
 
     @Override
-    public Flux<citasDTOReactiva> findByFecha(String fecha) {
+    public Flux<citasDTOReactiva> findByFecha(LocalDate fecha) {
         return this.IcitasReactivaRepository.findAllByFechaReservaCita(fecha);
+    }
+
+    @Override
+    public Flux<citasDTOReactiva> findByFecha2(LocalDate fecha) {
+        return this.IcitasReactivaRepository.findAll()
+                .filter(cita -> {
+                    return cita.getFechaReservaCita().equals(fecha);
+                });
+
     }
 
     @Override
