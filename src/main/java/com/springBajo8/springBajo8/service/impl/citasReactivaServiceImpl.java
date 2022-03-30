@@ -87,4 +87,9 @@ public class citasReactivaServiceImpl implements IcitasReactivaService {
     public Mono<citasDTOReactiva> consultDoctor(String id) {
         return this.IcitasReactivaRepository.findById(id);
     }
+
+    @Override
+    public Flux<citasDTOReactiva> findByHour(String hora) {
+        return this.IcitasReactivaRepository.findAllByHoraReservaCita(hora);
+    }
 }

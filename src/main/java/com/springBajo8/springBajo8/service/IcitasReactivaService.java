@@ -29,4 +29,6 @@ public interface IcitasReactivaService {
 
     Mono<citasDTOReactiva> consultDoctor(String id);
 
+    Flux<citasDTOReactiva> findByHour(String hora);
+
 }

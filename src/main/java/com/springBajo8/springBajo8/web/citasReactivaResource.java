@@ -69,16 +69,35 @@ public class citasReactivaResource {
         int day = Integer.parseInt(date[2]);
         LocalDate dateFormat = LocalDate.of(year, month, day);
 
-        System.out.println(this.icitasReactivaService.findByFecha2(dateFormat));
-        System.out.println(dateFormat);
+        /*System.out.println(this.icitasReactivaService.findByFecha2(dateFormat));
+        System.out.println(dateFormat);*/
 
         return this.icitasReactivaService.findByFecha(dateFormat);
-        //return this.icitasReactivaService.findByFecha2(fecha).collectList();
+        //return this.icitasReactivaService.findByFecha2(fecha);
     }
 
     @GetMapping(path = "/citasReactivas/{id}/consult-doctor/")
     private Mono<String> consultDoctor(@PathVariable("id") String id) {
         return this.icitasReactivaService.consultDoctor(id)
                 .flatMap(cita -> Mono.just(cita.getNombreMedico() +" "+  cita.getApellidosMedico()));
+    }
+
+    @GetMapping(value = "/citasReactivas/{hora}/hora")
+    private Flux<citasDTOReactiva> getCitasByHour(@PathVariable("hora") String hour) {
+        return this.icitasReactivaService.findByHour(hour);
+    }
+    
+    @GetMapping(path = "/citasReactivas/{fecha-hora}/fechaHora")
+    private Flux<citasDTOReactiva> getByDateHour(@PathVariable("fecha-hora") String fechaHora) {
+        String[] date = fechaHora.split("-");
+        int year = Integer.parseInt(date[0]);
+        int month = Integer.parseInt(date[1]);
+        int day = Integer.parseInt(date[2]);
+        LocalDate dateFormat = LocalDate.of(year, month, day);
+        String hour = date[3];
+
+        return this.icitasReactivaService.findByFecha(dateFormat)
+                .filter(cita -> cita.getHoraReservaCita().equals(hour));
+
     }
 }
